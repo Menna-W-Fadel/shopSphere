@@ -6,15 +6,15 @@ import {useColorScheme} from 'react-native';
 type AppMode = 'light' | 'dark' | 'system';
 
 //define context type to use in the create context 
-type ThemeContextType={
-    mode:AppMode;
-    isDark:boolean;
-    appTheme:AppTheme;
+export type ThemeContextType={
+    mode:AppMode;//current selected option (light,dark,system)
+    isDark:boolean;//boolean to decide the render 
+    appTheme:AppTheme; //type has the theme object (lightTheme or darkTheme)
     setMode:(mode:AppMode)=>void;
 }
 
 //step 1 create the context
-const ThemeContext =createContext<ThemeContextType|undefined>(undefined);
+export const ThemeContext =createContext<ThemeContextType|undefined>(undefined);
 
 
 export function ThemeProvider({children}: {children: React.ReactNode}){
@@ -34,16 +34,4 @@ export function ThemeProvider({children}: {children: React.ReactNode}){
             {children}
         </ThemeContext.Provider>
     )
-}
-
-export function useAppTheme() {
-  const context = useContext(ThemeContext);
-
-  if (context === undefined) {
-    throw new Error(
-      'useAppTheme must be used within ThemeProvider',
-    );
-  }
-
-  return context;
 }
