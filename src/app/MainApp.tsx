@@ -4,10 +4,7 @@ import { useAppTheme } from "../hooks/useAppTheme";
 import { type AppTheme } from "../theme/index";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import HomeScreen from "../features/home/screens/HomeScreen";
-import {
-  QueryClientProvider,
-  QueryClient,
-} from "@tanstack/react-query";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 export default function MainApp() {
   const { appTheme } = useAppTheme();
   const styles = useMemo(() => createStyles(appTheme), [appTheme]);
@@ -32,7 +29,9 @@ export default function MainApp() {
         }
       >
         <QueryClientProvider client={queryClient}>
-          <HomeScreen />
+          <View style={{ paddingBottom: appTheme.spacing.lg }}>
+            <HomeScreen />
+          </View>
         </QueryClientProvider>
       </SafeAreaProvider>
     </View>

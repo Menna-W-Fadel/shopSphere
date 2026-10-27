@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { ComponentProps, useMemo } from "react";
-import { type AppTheme } from "../theme";
+import { spacing, typography, type AppTheme } from "../theme";
 import { useAppTheme } from "../hooks/useAppTheme";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -8,13 +8,14 @@ type ChipProps = {
   textContext: string;
   hasIcon: boolean;
   icon?: ComponentProps<typeof Ionicons>["name"];
+  textSize?:number;
 };
 
-export default function Chip({ textContext, hasIcon, icon }: ChipProps) {
+export default function Chip({ textContext, hasIcon, icon ,textSize=typography.fontSize.xs}: ChipProps) {
   const { appTheme } = useAppTheme();
   const styles = useMemo(() => createStyles(appTheme), [appTheme]);
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       {hasIcon && icon && (
         <Ionicons
           name={icon}
@@ -23,7 +24,7 @@ export default function Chip({ textContext, hasIcon, icon }: ChipProps) {
           style={{ marginRight: appTheme.spacing.xs }}
         />
       )}
-      <Text style={styles.textContent}>
+      <Text style={[styles.textContent,{fontSize:textSize}]}>
         {textContext}
       </Text>
     </View>
@@ -40,12 +41,12 @@ const createStyles = (theme: AppTheme) =>
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "center",
-      width:"40%",
       marginVertical: theme.spacing.sm,
+      //Force container to shrink-wrap around the text
+    alignSelf: 'flex-start', 
     },
     textContent:{
       color:theme.colors.textSecondary,
-      fontSize:theme.typography.fontSize.xs,
       lineHeight:theme.typography.lineHeight.xs,
       fontWeight:theme.typography.fontWeight.bold,
     }

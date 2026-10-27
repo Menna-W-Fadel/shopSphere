@@ -12,14 +12,16 @@ function HomeScreen() {
   const styles = useMemo(() => createStyles(appTheme), [appTheme]);
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
     <View style={styles.container}>
-      <Navbar screenName="ShopSphere" />
-      <Chip textContext="Curated For You" hasIcon={true} icon="leaf-outline" />
-      <Header />
-      <FeaturedSection/>
+        <Navbar screenName="ShopSphere" />
+        <Chip
+          textContext="Curated For You"
+          hasIcon={true}
+          icon="leaf-outline"
+        />
+        <Header />
+      <FeaturedSection />
     </View>
-      </ScrollView>
   );
 }
 
@@ -36,12 +38,13 @@ const createStyles = (appTheme: AppTheme) =>
 
 export default HomeScreen;
 
-
- {/*             
+{
+  /*             
             <Text style={styles.headerStyle}> current mode is {mode}</Text>
             <Pressable onPress={()=>setMode('light')}>
                 <Text style={styles.headerStyle}> set light mode</Text>
             </Pressable>
             <Pressable onPress={()=>setMode('dark')}>
                 <Text style={styles.headerStyle}> set dark mode</Text>  
-            </Pressable> */}
+            </Pressable> */
+}

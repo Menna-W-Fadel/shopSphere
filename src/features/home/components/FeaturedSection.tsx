@@ -5,6 +5,7 @@ import ProductCard from "./ProductCard";
 import { Ionicons } from "@expo/vector-icons";
 import { useAppTheme } from "@/hooks/useAppTheme";
 import { AppTheme } from "@/theme";
+import FlatListHeader from "./FlatListHeader";
 
 export default function FeaturedSection() {
   const {
@@ -16,34 +17,20 @@ export default function FeaturedSection() {
     refetch,
   } = useProducts();
   const { appTheme } = useAppTheme();
-  const styles = useMemo(() => createStyles(appTheme), [appTheme]);
+  const FilteredProducts = useMemo(
+    () => products?.filter((item) => item.isFeatured),
+    [products],
+  );
   return (
-    <View>
-      <View>
-        <View>
-          <Text>Featured Products</Text>
-          <Text>Mindfully picked for your interior</Text>
-        </View>
-        <View>
-          {/* onPress navigation */}
-          <Pressable>
-            <Text>See All</Text>
-          </Pressable>
-          <Ionicons name="arrow-back" style={styles.icon}></Ionicons>
-        </View>
-      </View>
-      <FlatList
-        data={products}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ProductCard {...item} />}
-        numColumns={2}
-        ItemSeparatorComponent={<View style={{height:appTheme.spacing.lg}}/>}
-      />
-    </View>
+    <FlatList
+      data={FilteredProducts}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => <ProductCard {...item} />}
+      numColumns={2}
+      ItemSeparatorComponent={<View style={{ height: appTheme.spacing.lg }} />}
+      showsVerticalScrollIndicator={false}
+      ListHeaderComponent={<FlatListHeader listLength={products?.length} />}
+      //style={{paddingBottom:appTheme.spacing.lg}}
+    />
   );
 }
-
-const createStyles = (appTheme: AppTheme) =>
-  StyleSheet.create({
-    icon: {},
-  });
