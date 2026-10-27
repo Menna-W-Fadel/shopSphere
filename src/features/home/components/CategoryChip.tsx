@@ -35,7 +35,7 @@ const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
       backgroundColor: theme.colors.primaryAction,
-      paddingHorizontal: theme.spacing.sm,
+      paddingHorizontal: theme.spacing.md,
       height: theme.spacing.xxl,
       borderRadius: theme.radii.pill,
       flexDirection: "row",
