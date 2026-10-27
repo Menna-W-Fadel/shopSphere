@@ -1,4 +1,4 @@
-import { Product,PaginatedApiResponse } from "../types/products";
+import { Product,PaginatedApiResponse, ApiResponse } from "../types/products";
 import { apiClient } from "./apiClient";
 
 export type ProductsParams={
@@ -20,4 +20,9 @@ export async function getProducts(
 ):Promise<PaginatedApiResponse<Product[]>>{
     const response = await apiClient.get<PaginatedApiResponse<Product[]>>('/products');
     return response.data;
+}
+
+export async function getProductByID(productId:string):Promise<ApiResponse<Product>>{
+    const response = await apiClient.get(`/products/${productId}`)
+    return response.data
 }
