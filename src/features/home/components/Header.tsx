@@ -17,7 +17,7 @@ export default function Header() {
         <Ionicons
           name="sparkles-outline"
           size={appTheme.spacing.xl}
-          color={appTheme.colors.textSecondary}
+          color={appTheme.colors.primaryAction}
         />
       </View>
     </View>
@@ -38,7 +38,7 @@ const createStyles = (appTheme: AppTheme) =>
       paddingTop: appTheme.spacing.xs,
     },
     clipboardIcon: {
-      backgroundColor: appTheme.colors.border,
+      backgroundColor: appTheme.colors.surface,
       borderRadius: appTheme.radii.pill,
       borderColor: appTheme.colors.border,
       width: appTheme.spacing.xxl,
