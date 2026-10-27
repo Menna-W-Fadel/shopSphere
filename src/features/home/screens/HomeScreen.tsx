@@ -6,6 +6,7 @@ import Navbar from "../../../components/Navbar";
 import Chip from "../../../components/Chip";
 import Header from "../components/Header";
 import FeaturedSection from "../components/FeaturedSection";
+import CategoriesSection from "../components/CategoriesSection";
 
 function HomeScreen() {
   const { mode, appTheme, setMode } = useAppTheme();
@@ -20,6 +21,7 @@ function HomeScreen() {
           icon="leaf-outline"
         />
         <Header />
+        <CategoriesSection></CategoriesSection>
       <FeaturedSection />
     </View>
   );
