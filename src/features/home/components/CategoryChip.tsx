@@ -45,7 +45,7 @@ const createStyles = (theme: AppTheme) =>
       //Force container to shrink-wrap around the text
       //CONTAINER fits the text inside it 
     alignSelf: 'flex-start', 
-    marginHorizontal:theme.spacing.xs
+    marginRight:theme.spacing.xs
     },
     textContent:{
       color:theme.colors.primaryActionText,
