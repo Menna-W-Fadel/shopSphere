@@ -6,7 +6,7 @@ export const palette = {
   darkLimeAction: '#A9CD83',
   darkLimeActionText: '#17231B',
   warmIvory: '#F8F7F2',
-  white: '#FFFFFF',
+  white: '#EFF5EE',
 
   // Light Palette Neutrals
   neutral900: '#202622', // Primary text
