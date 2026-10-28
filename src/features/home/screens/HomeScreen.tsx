@@ -31,6 +31,8 @@ const createStyles = (appTheme: AppTheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor:appTheme.colors.background,
+      paddingBottom:appTheme.spacing.md,
     },
     headerStyle: {
       color: appTheme.colors.textPrimary,

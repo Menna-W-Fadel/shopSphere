@@ -3,8 +3,11 @@ import React, { useMemo, useState } from "react";
 import { useAppTheme } from "../hooks/useAppTheme";
 import { type AppTheme } from "../theme/index";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import HomeScreen from "../features/home/screens/HomeScreen";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { NavigationContainer } from "@react-navigation/native";
+import StackNavigation from "../navigation/stackNavigation/StackNavigation";
+import HomeScreen from "@/features/home/screens/HomeScreen";
+
 export default function MainApp() {
   const { appTheme } = useAppTheme();
   const styles = useMemo(() => createStyles(appTheme), [appTheme]);
@@ -29,9 +32,9 @@ export default function MainApp() {
         }
       >
         <QueryClientProvider client={queryClient}>
-          <View style={{ paddingBottom: appTheme.spacing.lg }}>
-            <HomeScreen />
-          </View>
+            <StackNavigation/>
+            {/* <HomeScreen /> */}
+            {/* <ProductDetailsScreen></ProductDetailsScreen> */}
         </QueryClientProvider>
       </SafeAreaProvider>
     </View>
@@ -42,9 +45,10 @@ const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      alignItems: "center",
-      justifyContent: "center",
+      // alignItems: "center",
+      // justifyContent: "center",
       paddingHorizontal: theme.spacing.lg,
       backgroundColor: theme.colors.background,
+      width:"100%",
     },
   });
