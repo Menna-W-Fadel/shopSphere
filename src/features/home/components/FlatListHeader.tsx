@@ -4,28 +4,39 @@ import { Ionicons } from "@expo/vector-icons";
 import { useAppTheme } from "@/hooks/useAppTheme";
 import { AppTheme } from "@/theme";
 
-type FlatListProp={
-    listLength?:number,
-}
+type FlatListProp = {
+  headerTitle:string,
+  listLength?: number;
+  renderSeeAll?:boolean;
+  onPressSeeAll?:()=>void
+};
 
-export default function FlatListHeader({ listLength }: FlatListProp) {
+export default function FlatListHeader({ headerTitle,listLength ,renderSeeAll=true,onPressSeeAll}: FlatListProp) {
   const { appTheme } = useAppTheme();
   const styles = useMemo(() => createStyles(appTheme), [appTheme]);
   return (
-    <View style={{paddingTop:appTheme.spacing.md}}>
-      <View style={styles.row}>
+    <View style={{ paddingTop: appTheme.spacing.md }}>
+      <View style={[styles.row,{  marginVertical: appTheme.spacing.md}]}>
         <View>
-          <Text style={styles.primaryText}>Featured Products</Text>
-          <Text style={styles.secondaryText}>Mindfully picked for your interior</Text>
+          <Text style={styles.primaryText}>{headerTitle}</Text>
+          <Text style={styles.secondaryText}>
+            Mindfully picked for your interior
+          </Text>
         </View>
-        <View style={styles.row}>
-          {/* onPress navigation */}
-          <Pressable>
-            <Text style={styles.seeAllText}>See All </Text>
-          </Pressable>
-          <Text style={styles.seeAllText}>{`(${listLength})`}</Text>
-          <Ionicons name="chevron-forward" style={styles.icon} size={20}></Ionicons>
-        </View>
+        {renderSeeAll&& (
+          <View style={styles.row}>
+            {/* onPress navigation */}
+            <Pressable onPress={onPressSeeAll}>
+              <Text style={styles.seeAllText}>See All </Text>
+            </Pressable>
+            <Text style={styles.seeAllText}>{`(${listLength})`}</Text>
+            <Ionicons
+              name="chevron-forward"
+              style={styles.icon}
+              size={20}
+            ></Ionicons>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -35,12 +46,11 @@ const createStyles = (appTheme: AppTheme) =>
   StyleSheet.create({
     icon: {
       marginLeft: appTheme.spacing.xs,
-      color:appTheme.colors.primaryAction,
+      color: appTheme.colors.primaryAction,
     },
     row: {
       flexDirection: "row",
       justifyContent: "space-between",
-      marginVertical: appTheme.spacing.md,
       alignItems: "center",
     },
     primaryText: {
@@ -53,9 +63,9 @@ const createStyles = (appTheme: AppTheme) =>
       fontSize: appTheme.typography.fontSize.xs,
       fontWeight: appTheme.typography.fontWeight.regular,
     },
-    seeAllText:{
-        color:appTheme.colors.primaryAction,
-        fontSize:appTheme.typography.fontSize.sm,
-        fontWeight: appTheme.typography.fontWeight.semibold,
-    }
+    seeAllText: {
+      color: appTheme.colors.primaryAction,
+      fontSize: appTheme.typography.fontSize.sm,
+      fontWeight: appTheme.typography.fontWeight.semibold,
+    },
   });

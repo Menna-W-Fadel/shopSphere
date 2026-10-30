@@ -16,11 +16,10 @@ export default function ProductDetailsScreen({ route }: any) {
   const styles = useMemo(() => createStyles(appTheme), [appTheme]);
   const {
     data: product,
-    isEnabled,
     error,
     isFetching,
     refetch,
-    isPending,
+    isLoading,
   } = useProductById(prodId);
   return (
     <View style={styles.container}>
