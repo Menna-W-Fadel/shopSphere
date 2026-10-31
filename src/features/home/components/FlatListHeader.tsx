@@ -5,37 +5,41 @@ import { useAppTheme } from "@/hooks/useAppTheme";
 import { AppTheme } from "@/theme";
 
 type FlatListProp = {
-  headerTitle:string,
-  listLength?: number;
-  renderSeeAll?:boolean;
-  onPressSeeAll?:()=>void
+  headerTitle: string;
+  renderSeeAll?: boolean;
+  onPressSeeAll?: () => void;
 };
 
-export default function FlatListHeader({ headerTitle,listLength ,renderSeeAll=true,onPressSeeAll}: FlatListProp) {
+export default function FlatListHeader({
+  headerTitle,
+  renderSeeAll = true,
+  onPressSeeAll,
+}: FlatListProp) {
   const { appTheme } = useAppTheme();
   const styles = useMemo(() => createStyles(appTheme), [appTheme]);
   return (
     <View style={{ paddingTop: appTheme.spacing.md }}>
-      <View style={[styles.row,{  marginVertical: appTheme.spacing.md}]}>
+      <View style={[styles.row, { marginVertical: appTheme.spacing.md }]}>
         <View>
           <Text style={styles.primaryText}>{headerTitle}</Text>
           <Text style={styles.secondaryText}>
             Mindfully picked for your interior
           </Text>
         </View>
-        {renderSeeAll&& (
-          <View style={styles.row}>
-            {/* onPress navigation */}
-            <Pressable onPress={onPressSeeAll}>
+        {renderSeeAll && (
+          <Pressable onPress={onPressSeeAll}>
+            <View style={styles.row}>
+              {/* onPress navigation */}
+
               <Text style={styles.seeAllText}>See All </Text>
-            </Pressable>
-            <Text style={styles.seeAllText}>{`(${listLength})`}</Text>
-            <Ionicons
-              name="chevron-forward"
-              style={styles.icon}
-              size={20}
-            ></Ionicons>
-          </View>
+
+              <Ionicons
+                name="chevron-forward"
+                style={styles.icon}
+                size={20}
+              ></Ionicons>
+            </View>
+          </Pressable>
         )}
       </View>
     </View>

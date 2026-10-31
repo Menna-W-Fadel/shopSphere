@@ -3,7 +3,7 @@ import React from "react";
 import { palette, spacing, radii, typography } from "@/theme";
 import { Ionicons } from "@expo/vector-icons";
 type ErrorProps={
-    error:string,
+    error?:string,
 }
 export default function ErrorContainer({error}: ErrorProps) {
   return (
