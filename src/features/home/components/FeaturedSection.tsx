@@ -1,12 +1,13 @@
-import { View, Text, StyleSheet, FlatList, Pressable } from "react-native";
+import { View, FlatList, Pressable, RefreshControl } from "react-native";
 import React, { useMemo } from "react";
 import { useProducts } from "@/hooks/useProducts";
 import ProductCard from "./ProductCard";
-import { Ionicons } from "@expo/vector-icons";
 import { useAppTheme } from "@/hooks/useAppTheme";
-import { AppTheme } from "@/theme";
 import FlatListHeader from "./FlatListHeader";
 import { useNavigation } from "@react-navigation/native";
+import ProductCardSkeleton from "./ProductCardSkeleton";
+import ErrorContainer from "@/components/ErrorContainer";
+import ProductsList from "@/components/ProductsList";
 
 export default function FeaturedSection() {
   const {
@@ -14,33 +15,25 @@ export default function FeaturedSection() {
     error,
     isError,
     isFetching,
-    isPending,
+    isLoading,
     refetch,
   } = useProducts();
-   const navigation = useNavigation<any>();
-  const { appTheme } = useAppTheme();
-  const FilteredProducts = useMemo(
-    () => products?.filter((item) => item.isFeatured),
+  const navigation = useNavigation<any>();
+  const filteredProducts = useMemo(
+    () => products?.filter((item) => item.isFeatured).slice(0, 4),
     [products],
   );
   return (
-    <FlatList
-      data={FilteredProducts}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => (
-        <Pressable
-          onPress={() =>
-            navigation.navigate("productDetails", { prodId: item.id })
-          }
-        >
-          <ProductCard {...item} />
-        </Pressable>
-      )}
-      numColumns={2}
-      ItemSeparatorComponent={<View style={{ height: appTheme.spacing.lg }} />}
-      showsVerticalScrollIndicator={false}
-      ListHeaderComponent={<FlatListHeader listLength={products?.length} />}
-      //style={{paddingBottom:appTheme.spacing.lg}}
+    <ProductsList
+      productsList={filteredProducts}
+      headerTitle="Featured Section"
+      onPressSeeAll={() => navigation.navigate("browseProducts")}
+      error={error}
+      isError={isError}
+      isLoading={isLoading}
+      isFetching={isFetching}
+      refetch={refetch}
+      skeletonNum={[1, 2, 3, 4]}
     />
   );
 }

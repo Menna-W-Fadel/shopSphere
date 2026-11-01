@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Pressable, ScrollView } from "react-native";
+import { StyleSheet, View, } from "react-native";
 import { useAppTheme } from "../../../hooks/useAppTheme";
 import { type AppTheme } from "../../../theme/index";
 import { useMemo } from "react";

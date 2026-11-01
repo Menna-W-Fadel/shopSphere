@@ -27,6 +27,16 @@ export const palette = {
   success: '#287A50',
   successLight: '#EAF5EF',
   warning: '#E5A000',
+  errorBorder:"#EBCBC5",
+
+  //skeleton light
+  platinum:"#E6E8E2",
+  Alabaster:"#F8F7F2",
+
+  //skeleton dark
+  darkStaleGreen:"#24312B",
+  outerSpace:"#344239",
+
 } as const;
 
 export interface ColorTheme {
@@ -45,6 +55,8 @@ export interface ColorTheme {
   successLight: string;
   card: string;
   overlay: string;
+  skeletonBG:string;
+  skeletonHighlight:string;
 }
 
 export const lightColors: ColorTheme = {
@@ -63,6 +75,9 @@ export const lightColors: ColorTheme = {
   successLight: palette.successLight,
   card: palette.white,
   overlay: 'rgba(24, 60, 53, 0.4)',
+  skeletonBG:palette.platinum,
+  skeletonHighlight:palette.Alabaster,
+
 };
 
 export const darkColors: ColorTheme = {
@@ -81,4 +96,6 @@ export const darkColors: ColorTheme = {
   successLight: 'rgba(40, 122, 80, 0.2)',
   card: palette.darkSurface,
   overlay: 'rgba(0, 0, 0, 0.65)',
+  skeletonBG:palette.darkStaleGreen,
+  skeletonHighlight:palette.outerSpace,
 };
