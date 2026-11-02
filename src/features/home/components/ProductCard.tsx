@@ -12,6 +12,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { AppTheme } from "../../../theme";
 import { type Product } from "@/types/products";
 import Chip from "@/components/Chip";
+import {useAppDispatch} from "@/store/hooks";
+import { addToCart, CartItem } from "@/store/slices/cartSlice";
 
 export default function ProductCard({
   name,
@@ -22,11 +24,22 @@ export default function ProductCard({
   reviewCount,
   isFavorite,
   images,
+  id,
 }: Product) {
   const { appTheme } = useAppTheme();
   const styles = useMemo(() => createStyles(appTheme), [appTheme]);
   const favoriteIcon = isFavorite ? "heart" : "heart-outline";
   const iconColor = isFavorite ? appTheme.colors.error : appTheme.colors.border;
+  const dispatch = useAppDispatch();
+  const cartItem:CartItem={
+    id,
+    title:name,
+    image:images[0],
+    price,
+    quantity:1,
+  };
+
+  const handleAddToCart = () => dispatch(addToCart(cartItem));
   return (
     <View style={styles.container}>
       {/* card header containg image, badge and favorite icon */}
@@ -79,7 +92,7 @@ export default function ProductCard({
             {price} {currency}
           </Text>
           <View style={[styles.heartContainer,{backgroundColor:appTheme.colors.primaryAction}]}>
-            <Ionicons name="add" size={16} color={appTheme.colors.primaryActionText}></Ionicons>
+            <Ionicons name="add" size={16} color={appTheme.colors.primaryActionText} onPress={handleAddToCart} />
           </View>
         </View>
       </View>

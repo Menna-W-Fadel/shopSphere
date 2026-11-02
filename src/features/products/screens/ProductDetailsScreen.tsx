@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import React, { useMemo } from "react";
 import ProductHeader from "../components/ProductHeader";
 import { useProductById } from "@/hooks/useProductBtId";
@@ -9,6 +9,8 @@ import ImageSlider from "../components/ImageSlider";
 import RatingRow from "../components/RatingRow";
 import VariantsSection from "../components/VariantsSection";
 import VariantHeader from "../components/VariantHeader";
+import {useAppDispatch} from "@/store/hooks";
+import {increaseQuantity, decreaseQuantity, addToCart, CartItem} from "@/store/slices/cartSlice";
 
 export default function ProductDetailsScreen({ route }: any) {
   const { prodId } = route.params;
@@ -21,6 +23,15 @@ export default function ProductDetailsScreen({ route }: any) {
     refetch,
     isLoading,
   } = useProductById(prodId);
+  const dispatch = useAppDispatch();
+  const cartItem:CartItem={
+    id:prodId,
+    title:product?.name || "",
+    image:product?.images[0] || "",
+    price:product?.price || 0,
+    quantity:1,
+  }
+  const handleAddToCart = () => dispatch(addToCart(cartItem))
   return (
     <View style={styles.container}>
       <Navbar screenName="Product Details"></Navbar>
@@ -47,7 +58,9 @@ export default function ProductDetailsScreen({ route }: any) {
               <VariantsSection {...product}></VariantsSection>
             </>
           )}
-
+          <Pressable onPress={handleAddToCart} style={styles.buttonStyle}>
+            <Text style={styles.buttonTextStyle}>Add to Cart</Text>
+          </Pressable>
           {/* <Text>{product.description}</Text> */}
         </>
       )}
@@ -81,5 +94,15 @@ const createStyles = (apptheme: AppTheme) =>
       color: apptheme.colors.textPrimary,
       fontSize: apptheme.typography.fontSize.xl,
       fontWeight: apptheme.typography.fontWeight.bold,
+    },
+    buttonStyle:{
+      width:"100%",
+      backgroundColor:apptheme.colors.primaryAction,
+      padding:apptheme.spacing.md,
+      borderRadius:apptheme.radii.md,
+      alignItems: "center",
+    },
+    buttonTextStyle: {
+      color: apptheme.colors.primaryActionText,
     },
   });

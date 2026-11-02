@@ -4,6 +4,7 @@ import HomeScreen from "@/features/home/screens/HomeScreen";
 import ProductDetailsScreen from "@/features/products/screens/ProductDetailsScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import BrowseProducts from "@/features/products/screens/BrowseProducts";
+import CartScreen from "@/features/cart/screens/CartScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,8 +22,16 @@ export default function StackNavigation() {
           component={ProductDetailsScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="browseProducts" component={BrowseProducts}
-        options={{headerShown:false}}/>
+        <Stack.Screen
+          name="browseProducts"
+          component={BrowseProducts}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="cartScreen"
+          component={CartScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

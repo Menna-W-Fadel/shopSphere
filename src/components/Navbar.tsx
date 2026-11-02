@@ -1,10 +1,13 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import React, { useMemo } from "react";
 import { images } from "../constants/images";
 import { useAppTheme } from "../hooks/useAppTheme";
 import { type AppTheme } from "../theme/index";
 import AvatarPhoto from "./AvatarPhoto";
 import { Ionicons } from "@expo/vector-icons";
+import { useAppSelector } from "@/store/hooks";
+import { selectCartQuantity } from "@/store/selectors/cartSelectors";
+import { useNavigation } from "@react-navigation/native";
 type NavbarProps = {
   screenName: string;
 };
@@ -12,7 +15,9 @@ type NavbarProps = {
 export default function Navbar({ screenName }: NavbarProps) {
   const theme = useAppTheme();
   const styles = useMemo(() => createStyles(theme.appTheme), [theme.appTheme]);
-
+  const cartQuantity = useAppSelector(selectCartQuantity);
+  //const isCartNotEmpty = cartQuantity !== 0;
+  const navigation = useNavigation<any>();
   return (
     <View style={styles.container}>
       <View style={styles.rowStyle}>
@@ -20,15 +25,25 @@ export default function Navbar({ screenName }: NavbarProps) {
         <Text style={styles.textHeader}>{screenName}</Text>
       </View>
       <View style={styles.rowStyle}>
-        <Ionicons
-          name="notifications-outline"
-          size={theme.appTheme.spacing.xl}
-          color={theme.appTheme.colors.textPrimary}
-          style={{
-            marginRight: theme.appTheme.spacing.xl,
-            paddingTop: theme.appTheme.spacing.sm,
-          }}
-        />
+        <Pressable
+          onPress={() => navigation.navigate("cartScreen")}
+          style={styles.cartButton}
+        >
+          <Ionicons
+            name="cart-outline"
+            size={theme.appTheme.spacing.xl}
+            color={theme.appTheme.colors.textPrimary}
+          />
+
+          {cartQuantity > 0 && (
+            <View style={styles.cartIconContainer}>
+              <Text style={styles.cartIconText}>
+                {cartQuantity > 99 ? "99+" : cartQuantity}
+              </Text>
+            </View>
+          )}
+        </Pressable>
+        {/* )} */}
         <AvatarPhoto />
       </View>
     </View>
@@ -59,5 +74,31 @@ const createStyles = (theme: AppTheme) =>
     rowStyle: {
       flexDirection: "row",
       alignItems: "center",
+    },
+    cartButton: {
+      position: "relative",
+      marginRight: theme.spacing.xl,
+      paddingTop: theme.spacing.sm,
+    },
+
+    cartIconContainer: {
+      position: "absolute",
+      top: 0,
+      right: -8,
+      minWidth: 18,
+      height: 18,
+      paddingHorizontal: 4,
+      backgroundColor: theme.colors.primaryAction,
+      borderRadius: theme.radii.pill,
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 1,
+    },
+
+    cartIconText: {
+      color: theme.colors.primaryActionText,
+      fontWeight: theme.typography.fontWeight.bold,
+      fontSize: 10,
+      textAlign: "center",
     },
   });
