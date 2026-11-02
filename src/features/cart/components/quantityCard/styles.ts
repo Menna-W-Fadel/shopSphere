@@ -4,7 +4,7 @@ import type { AppTheme } from "@/theme";
 const createStyles = (appTheme: AppTheme) =>
   StyleSheet.create({
     container: {
-      width: "100%",
+      width: "60%",
       height: 40,
       backgroundColor: appTheme.colors.surface,
       borderRadius: appTheme.radii.md,
