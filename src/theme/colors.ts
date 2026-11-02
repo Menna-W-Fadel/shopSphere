@@ -7,7 +7,7 @@ export const palette = {
   darkLimeActionText: '#17231B',
   warmIvory: '#F8F7F2',
   white: '#EFF5EE',
-
+  pureWhite: '#FFFFFF',
   // Light Palette Neutrals
   neutral900: '#202622', // Primary text
   neutral500: '#777F79', // Secondary text
@@ -73,7 +73,7 @@ export const lightColors: ColorTheme = {
   errorLight: palette.errorLight,
   success: palette.success,
   successLight: palette.successLight,
-  card: palette.white,
+  card: palette.pureWhite,
   overlay: 'rgba(24, 60, 53, 0.4)',
   skeletonBG:palette.platinum,
   skeletonHighlight:palette.Alabaster,
