@@ -22,7 +22,8 @@ export default function CartScreen() {
     ListEmptyComponent={()=><Text style={{color:appTheme.colors.textPrimary}}>Your cart is empty</Text>}
     ListHeaderComponent={()=><Text style={{color:appTheme.colors.textPrimary,fontSize:appTheme.typography.fontSize.lg}}>My Cart</Text>}   
      />
-     <Text>total price: {`$${totalPrice}`}</Text>
+     { totalPrice>0 &&(<Text>total price: {`$${totalPrice}`}</Text>)}
+     
     </View>
   )
 }
