@@ -4,25 +4,33 @@ import {AppTheme} from "../../../theme"
 import {useAppTheme} from"../../../hooks/useAppTheme";
 import {useAppSelector} from"@/store/hooks";
 import CartCardComponent from '../components/cartCard/CartCardComponent';
-import { selectCartItems,selectCartTotalPrice} from '@/store/selectors/cartSelectors';
+import { selectCartItems} from '@/store/selectors/cartSelectors';
+import { useProducts } from '@/hooks/useProducts';
 
 export default function CartScreen() {
     const {appTheme} =useAppTheme();
     const styles = useMemo(()=>createStyles(appTheme),[appTheme]);
     const cartItems = useAppSelector(selectCartItems);
-    const totalPrice =useAppSelector(selectCartTotalPrice);
+    const productsList= useProducts()
+    // const totalPrice =useAppSelector(selectCartTotalPrice);
+    const cartItemsWithProductDetails = useMemo(()=>{
+        return cartItems.map(cartItem=>{
+            const product = productsList.data?.find(product=>product.id === cartItem.id);
+            return {...cartItem, ...product};
+        });
+    }, [cartItems, productsList]);
 
   return (
     <View style={styles.container}>
      <FlatList 
-     data={cartItems}
+     data={cartItemsWithProductDetails}
     keyExtractor={(item)=>item.id}
     showsVerticalScrollIndicator={false}
-    renderItem={({item})=><CartCardComponent {...item} />}
+    renderItem={({item})=><CartCardComponent {...item} name={item.name ?? ""} image={item.images?.[0] ||""}  price={item.price || 0}/>}
     ListEmptyComponent={()=><Text style={{color:appTheme.colors.textPrimary}}>Your cart is empty</Text>}
     ListHeaderComponent={()=><Text style={{color:appTheme.colors.textPrimary,fontSize:appTheme.typography.fontSize.lg}}>My Cart</Text>}   
      />
-     { totalPrice>0 &&(<Text>total price: {`$${totalPrice}`}</Text>)}
+     {/* { totalPrice>0 &&(<Text>total price: {`$${totalPrice}`}</Text>)} */}
      
     </View>
   )

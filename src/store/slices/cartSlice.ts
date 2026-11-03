@@ -3,11 +3,11 @@ import{createSlice, PayloadAction} from "@reduxjs/toolkit";
 ///step 1 define types and state for cart
 export type CartItem={
     id:string,
-    title:string,
-    subtitle?:string,
+    // title:string,
+    // subtitle?:string,
     quantity:number,
-    price:number,
-    image:string,
+    // price:number,
+    // image:string,
 
 }
 

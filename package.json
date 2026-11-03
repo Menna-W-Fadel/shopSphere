@@ -4,12 +4,16 @@
   "main": "index.ts",
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
+    "@react-native-async-storage/async-storage": "2.2.0",
     "@react-navigation/native": "^7.5.1",
     "@react-navigation/native-stack": "^7.21.0",
     "@reduxjs/toolkit": "^2.13.0",
+    "@tanstack/query-async-storage-persister": "^5.105.3",
     "@tanstack/react-query": "^5.105.0",
+    "@tanstack/react-query-persist-client": "^5.105.3",
     "axios": "^1.20.0",
     "expo": "~58.0.19",
+    "expo-image": "^58.0.18",
     "expo-linear-gradient": "^58.0.3",
     "expo-status-bar": "~58.0.4",
     "react": "19.3.0",
@@ -20,7 +24,8 @@
     "react-native-star-rating-widget": "^1.11.0",
     "react-native-svg": "^15.16.0",
     "react-native-worklets": "^0.13.1",
-    "react-redux": "^9.3.1"
+    "react-redux": "^9.3.1",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
     "@types/react": "~19.3.0",

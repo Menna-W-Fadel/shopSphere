@@ -9,7 +9,7 @@ import { useAppTheme } from "@/hooks/useAppTheme";
 type CartCardProps = {
   id: string;
   image: string;
-  title: string;
+  name: string;
   subtitle?: string;
   price: number;
   quantity: number;
@@ -17,7 +17,7 @@ type CartCardProps = {
 export default function CartCardComponent({
   id,
   image,
-  title,
+  name,
   subtitle,
   price,
   quantity,
@@ -46,7 +46,7 @@ const { appTheme } = useAppTheme();
         <View style={styles.row}>
           {/* title and subtitle */}
           <View>
-            <Text>{title}</Text>
+            <Text>{name}</Text>
             {subtitle && <Text>{subtitle}</Text>}
           </View>
           {/* delete icon */}
