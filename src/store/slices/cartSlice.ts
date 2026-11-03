@@ -3,11 +3,11 @@ import{createSlice, PayloadAction} from "@reduxjs/toolkit";
 ///step 1 define types and state for cart
 export type CartItem={
     id:string,
-    title:string,
-    subtitle?:string,
+    // title:string,
+    // subtitle?:string,
     quantity:number,
-    price:number,
-    image:string,
+    // price:number,
+    // image:string,
 
 }
 
@@ -23,6 +23,10 @@ const cartSlice = createSlice({
     name:"cart",
     initialState,
     reducers:{
+        //to set the cart with the resrored cart saved 
+        setCartItems:(state,action:PayloadAction<CartItem[]>)=>{
+            state.items=action.payload;
+        },
         addToCart:(state,action:PayloadAction<CartItem>)=>{
             const existingItem =state.items.find(item => item.id === action.payload.id);
             if(existingItem){
@@ -50,5 +54,5 @@ const cartSlice = createSlice({
     }
 })
 
-export const {addToCart,removeFromCart,increaseQuantity,decreaseQuantity} = cartSlice.actions;
+export const {addToCart,removeFromCart,increaseQuantity,decreaseQuantity,setCartItems} = cartSlice.actions;
 export default cartSlice.reducer;
